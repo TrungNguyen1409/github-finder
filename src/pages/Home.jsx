@@ -1,11 +1,12 @@
 import React from 'react'
+import UserResults from '../components/users/UserResults'
 
-function Home
-() {
+function Home() {
   return (
-    <div>
-        <h1 className="text-6xl">Welcome</h1>
-    </div>
+    <>
+    {/* Serach components go here */}
+      <UserResults></UserResults>        
+    </>
   )
 }
 
