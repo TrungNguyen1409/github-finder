@@ -18,7 +18,7 @@ export const GithubProvider = ({ children }) => {
     // Get search results
     const searchUser = async (text) => {
         setLoading()
-        
+
         const params = new URLSearchParams({
             q: text
         })
@@ -28,25 +28,34 @@ export const GithubProvider = ({ children }) => {
                 Authorization: `token ${GITHUB_TOKEN}`
             }
         })
-        const {items} = await response.json()
+        const { items } = await response.json()
         console.log(items)
         dispatch({
             type: 'GET_USERS',
             payload: items
         })
-    } 
+    }
 
-    
+    // Clear result 
+
+    const clearSearchResult = () => {
+
+        console.log("clear")
+        dispatch({
+            type: 'CLEAR_RESULT'
+        })
+    }
 
     // Set Loading
-    const setLoading = () => dispatch({type:
-        'SET_LOADING'
+    const setLoading = () => dispatch({
+        type:
+            'SET_LOADING'
     })
 
     return <GithubContext.Provider value={{
         users: state.users,
         loading: state.loading,
-        
+        clearSearchResult,
         searchUser
     }}>
         {children}
