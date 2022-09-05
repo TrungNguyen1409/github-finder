@@ -2,18 +2,21 @@ import React from 'react'
 import { useEffect, useContext } from 'react'
 import GithubContext from '../context/github/GithubContext'
 import { useParams } from 'react-router-dom'
-import { FaCode, FaCodePen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
+import { FaCode, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import Spinner from '../components/layout/assets/Spinner'
+import RepoList from '../components/repos/RepoList'
 
 
 function User() {
 
-    const { getUser, user, loading } = useContext(GithubContext)
+    const { getUser, user, loading, getUserRepos,repos } = useContext(GithubContext)
     const params = useParams()
 
     useEffect(() => {
         getUser(params.login)
+        getUserRepos(params.login)
+
     }, [])
 
     // Destructuring user object
@@ -49,7 +52,7 @@ function User() {
                     <div className="custom-card-image mb-6 md:mb-0">
                         <div className="rounded-lg shadow-xl card image-full">
                             <figure>
-                                <img src={avatar_url} alt='profile picture' />
+                                <img src={avatar_url} alt='profile' />
                             </figure>
                             <div className="card-body justify-end">
                                 <h4 className='card-title mb-0'>{name}</h4>
@@ -160,6 +163,7 @@ function User() {
                         </div>
                     </div>
                 </div>
+                <RepoList/>
             </div>
         </>
     )
